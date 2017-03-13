@@ -1,0 +1,93 @@
+﻿// https://github.com/dotnet/coreclr/issues/9168#issuecomment-277846829
+{
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.0.1",
+      "type": "platform"
+    },
+    "System.ComponentModel.TypeConverter": {
+      "version": "4.3.0",
+      "exclude": "runtime"
+    },
+    "System.ComponentModel.Primitives": {
+      "version": "4.3.0",
+      "exclude": "runtime"
+    },
+    "System.Collections.Specialized": {
+      "version": "4.3.0",
+      "exclude": "runtime"
+    },
+    "System.Threading": {
+      "version": "4.3.0",
+      "exclude": "runtime"
+    },
+    "System.Linq": {
+      "version": "4.3.0",
+      "exclude": "runtime"
+    },
+    "Microsoft.ApplicationInsights.AspNetCore": "1.0.0",
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0",
+    "Microsoft.AspNetCore.Mvc": "1.0.1",
+    "Microsoft.AspNetCore.Razor.Tools": {
+      "version": "1.0.0-preview2-final",
+      "type": "build"
+    },
+    "Microsoft.AspNetCore.Routing": "1.0.1",
+    "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0",
+    "Microsoft.Extensions.Logging": "1.0.0",
+    "Microsoft.Extensions.Logging.Console": "1.0.0",
+    "Microsoft.Extensions.Logging.Debug": "1.0.0",
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
+    "System.Runtime.InteropServices": "4.3.0",
+    "Glovebox.IoT.Devices": "1.0.17", // nincs inputport
+
+    "Microsoft.NETCore.UniversalWindowsPlatform": {
+      "version": "5.1.0",
+      "exclude": "runtime"
+    }
+  },
+
+  "tools": {
+    "BundlerMinifier.Core": "2.0.238",
+    "Microsoft.AspNetCore.Razor.Tools": "1.0.0-preview2-final",
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "portable-net45+win8",
+        "uap10.0"
+        //"net45"
+      ]
+    }
+  },
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true
+  },
+  "runtimeOptions": {
+    "configProperties": {
+      "System.GC.Server": true
+    }
+  },
+  "publishOptions": {
+    "include": [
+      "wwwroot",
+      "**/*.cshtml",
+      "appsettings.json",
+      "hosting.json",
+      "web.config",
+      "asp_arm.runtimeconfig.json"
+    ]
+  },
+  "scripts": {
+    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
+  }
+}
