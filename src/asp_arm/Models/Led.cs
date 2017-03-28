@@ -1,5 +1,5 @@
 ﻿using System;
-using Glovebox.IoT.Devices.Actuators;
+using GpioWrapper;
 
 namespace asp_arm.Models
 {
@@ -54,7 +54,8 @@ namespace asp_arm.Models
             Console.WriteLine("led init start");
             try
             {
-                led = new Led(5);
+                led = new Led();
+                led.Init(5, GpioWrapper.PinValue.Low);
             }
             catch (Exception e)
             {

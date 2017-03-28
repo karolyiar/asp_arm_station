@@ -57,6 +57,9 @@ namespace asp_arm
                         name: "led",
                         template: "{controller=Led}/{state?}");
                     routes.MapRoute(
+                        name: "input",
+                        template: "{controller=Input}");
+                    routes.MapRoute(
                         name: "default",
                         template: "{controller=Home}/{action=Index}/{id?}");
                     

@@ -9,28 +9,19 @@ using asp_arm.Models;
 
 namespace asp_arm.Controllers
 {
-    [Route("led")]
-    public class LedController : Controller
+    [Route("input")]
+    public class InputController : Controller
     {
-        // GET: /led/
+        // GET: /<controller>/
         public IActionResult Index()
         {
             return View();
         }
-        [HttpGet("{state:int}")]
-        public string Get(int state)
-        {
-            LedModell led = LedModell.getLed();
-            Console.WriteLine("a");
-            led.SetState(state==1?"on":"off");
-            Console.WriteLine("b");
-            return led.GetState();
-        }
         [HttpGet]
         public string Get()
         {
-            LedModell led = LedModell.getLed();
-            return led.GetState();
+            InputModel input = InputModel.getInput();
+            return input.GetState();
         }
     }
 }
