@@ -20,17 +20,17 @@ namespace asp_arm.Controllers
         [HttpGet("{state:int}")]
         public string Get(int state)
         {
-            LedModell led = LedModell.getLed();
+            LedModel led = LedModel.Instance;
             Console.WriteLine("a");
-            led.SetState(state==1?"on":"off");
+            led.State = (state==1?"on":"off");
             Console.WriteLine("b");
-            return led.GetState();
+            return led.State;
         }
         [HttpGet]
         public string Get()
         {
-            LedModell led = LedModell.getLed();
-            return led.GetState();
+            LedModel led = LedModel.Instance;
+            return led.State;
         }
     }
 }

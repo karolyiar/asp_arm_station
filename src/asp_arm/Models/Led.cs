@@ -3,48 +3,54 @@ using GpioWrapper;
 
 namespace asp_arm.Models
 {
-    public class LedModell
+    public class LedModel
     {
-        static LedModell ledModell = null;
+        private static volatile LedModel ledModel = null;
         Led led;
-        
+
         private bool state = false;
-        private LedModell()
+        private LedModel()
         {
             InitGPIO();
         }
-        public static LedModell getLed()
+        public static LedModel Instance
         {
-            if (ledModell == null)
+            get
             {
-                ledModell = new LedModell();
-            }
-            return ledModell;
-        }
-        public string GetState()
-        {
-            return state ? "on" : "off";
-        }
-        public void SetState(string _state)
-        {
-            Console.WriteLine("led set start");
-            try
-            {
-                switch (_state)
+                if (ledModel == null)
                 {
-                    case "on":
-                        led.On();
-                        state = true;
-                        break;
-                    case "off":
-                        led.Off();
-                        state = false;
-                        break;
+                    ledModel = new LedModel();
                 }
+                return ledModel;
             }
-            catch (Exception e)
+        }
+        public string State
+        {
+            get
             {
-                Console.WriteLine("led set failed: " + e);
+                return state ? "on" : "off";
+            }
+            set
+            {
+                Console.WriteLine("led set start");
+                try
+                {
+                    switch (value)
+                    {
+                        case "on":
+                            led.On();
+                            state = true;
+                            break;
+                        case "off":
+                            led.Off();
+                            state = false;
+                            break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("led set failed: " + e);
+                }
             }
         }
 
@@ -68,7 +74,8 @@ namespace asp_arm.Models
             if (state)
             {
                 led.Write(PinValue.High);
-            } else
+            }
+            else
             {
                 led.Write(PinValue.Low);
             }

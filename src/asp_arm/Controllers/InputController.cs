@@ -20,8 +20,8 @@ namespace asp_arm.Controllers
         [HttpGet]
         public string Get()
         {
-            InputModel input = InputModel.getInput();
-            return input.GetState();
+            InputModel input = InputModel.Instance;
+            return input.State;
         }
     }
 }

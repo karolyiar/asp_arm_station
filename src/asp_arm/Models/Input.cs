@@ -8,7 +8,7 @@ namespace asp_arm.Models
 {
     public class InputModel
     {
-        static InputModel inputModel = null;
+        private static volatile InputModel inputModel = null;
         Input input;
 
         private bool state = false;
@@ -16,17 +16,23 @@ namespace asp_arm.Models
         {
             InitGPIO();
         }
-        public static InputModel getInput()
+        public static InputModel Instance
         {
-            if (inputModel == null)
+            get
             {
-                inputModel = new InputModel();
+                if (inputModel == null)
+                {
+                    inputModel = new InputModel();
+                }
+                return inputModel;
             }
-            return inputModel;
         }
-        public string GetState()
+        public string State
         {
-            return input.GetValue() == PinValue.High ? "on" : "off";
+            get
+            {
+                return input.GetValue() == PinValue.High ? "on" : "off";
+            }
         }
 
         private void InitGPIO()
@@ -48,7 +54,7 @@ namespace asp_arm.Models
         {
             if (e == PinEdge.RisingEdge)
             {
-                LedModell led = LedModell.getLed();
+                LedModel led = LedModel.Instance;
                 led.Toggle();
             }
         }
