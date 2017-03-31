@@ -7,8 +7,7 @@ namespace asp_arm.Models
     {
         static LedModell ledModell = null;
         Led led;
-
-        //GpioPin button;
+        
         private bool state = false;
         private LedModell()
         {
@@ -61,29 +60,18 @@ namespace asp_arm.Models
             {
                 Console.WriteLine("led init failed: " + e);
             }
-            /*try
-            {
-                button = Pi.Gpio[6];
-                button.PinMode = GpioPinDriveMode.Input;
-                button.InputPullMode = GpioPinResistorPullMode.PullUp;
-                button.RegisterInterruptCallback(EdgeDetection.FallingEdge, Toggle);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("button init failed: " + e);
-            }*/
         }
 
-        /*private void Toggle()
+        public void Toggle()
         {
             state = !state;
             if (state)
             {
-                led.Write(true);
+                led.Write(PinValue.High);
             } else
             {
-                led.Write(false);
+                led.Write(PinValue.Low);
             }
-        }*/
+        }
     }
 }

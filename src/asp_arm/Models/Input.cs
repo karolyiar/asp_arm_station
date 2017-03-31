@@ -36,10 +36,20 @@ namespace asp_arm.Models
             {
                 input = new Input(6);
                 input.InitGPIO();
+                input.Changed += ChangedEventHandler;
             }
             catch (Exception e)
             {
                 Console.WriteLine("input init failed: " + e);
+            }
+        }
+
+        private void ChangedEventHandler(Input sender, PinEdge e)
+        {
+            if (e == PinEdge.RisingEdge)
+            {
+                LedModell led = LedModell.getLed();
+                led.Toggle();
             }
         }
     }

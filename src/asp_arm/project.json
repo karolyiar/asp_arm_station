@@ -44,11 +44,13 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "System.Runtime.InteropServices": "4.3.0",
-    "Glovebox.IoT.Devices": "1.0.17", // nincs inputport
-    "GpioWrapper": "0.0.5",
+    "GpioWrapper": "0.0.7",
+    "WebcamWrapper": "0.0.2",
+    "System.Runtime.InteropServices.WindowsRuntime": "4.0.0",
+    "System.Runtime.WindowsRuntime": "4.0.10",
 
     "Microsoft.NETCore.UniversalWindowsPlatform": {
-      "version": "5.1.0",
+      "version": "5.0.0",
       "exclude": "runtime"
     }
   },
@@ -62,10 +64,7 @@
   "frameworks": {
     "netcoreapp1.0": {
       "imports": [
-        "dotnet5.6",
-        "portable-net45+win8",
-        "uap10.0",
-        "net40"
+        "uap10.0"
       ]
     }
   },

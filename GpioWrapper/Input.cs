@@ -12,8 +12,8 @@ namespace GpioWrapper
     {
         private int pinNumber;
         private GpioPin gpioPin;
-        //public delegate void ChangedEventHandler(object sender, PinEdge e);
-        //public event ChangedEventHandler Changed;
+        public delegate void ChangedEventHandler(Input sender, PinEdge e);
+        public event ChangedEventHandler Changed;
 
         public Input(int pinNumber)
         {
@@ -39,7 +39,7 @@ namespace GpioWrapper
             gpioPin.DebounceTimeout = TimeSpan.FromMilliseconds(50);
             // Register for the ValueChanged event so our buttonPin_ValueChanged
             // function is called when the button is pressed
-            //gpioPin.ValueChanged += pin_ValueChanged;
+            gpioPin.ValueChanged += pin_ValueChanged;
         }
 
         public PinValue GetValue()
@@ -47,10 +47,10 @@ namespace GpioWrapper
             return gpioPin.Read() == GpioPinValue.High ? PinValue.High : PinValue.Low;
         }
 
-        //private void pin_ValueChanged(GpioPin sender, GpioPinValueChangedEventArgs e)
-        //{
-        //    Changed(this, e.Edge == GpioPinEdge.FallingEdge ? PinEdge.FallingEdge : PinEdge.RisingEdge);
-        //}
+        private void pin_ValueChanged(GpioPin sender, GpioPinValueChangedEventArgs e)
+        {
+            Changed(this, e.Edge == GpioPinEdge.FallingEdge ? PinEdge.FallingEdge : PinEdge.RisingEdge);
+        }
     }
 
 }
