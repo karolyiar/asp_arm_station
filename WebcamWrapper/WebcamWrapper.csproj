@@ -116,6 +116,20 @@
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir package\lib\uap10.0
+copy WebcamWrapper.dll package\lib\uap10.0 /y
+del "$(SolutionDir)WebcamWrapper*.nupkg" /s /q
+d:\download\nuget pack "$(ProjectDir)WebcamWrapper.nuspec" -OutputDirectory "$(SolutionDir) " -BasePath package
+del package\lib\uap10.0\*.* /q
+rmdir package /s /q
+
+del %25userprofile%25\.nuget\packages\webcamwrapper /q</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
