@@ -1,36 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebcamWrapper;
+﻿using WebcamWrapper;
 
 namespace asp_arm.Models
 {
     public class WebcamModel
     {
-        static WebcamModel webcamModel = null;
+        private static volatile WebcamModel webcamModel = null;
         Webcam webcam;
         private WebcamModel()
-        {
-            initVideo();
-        }
-        public static WebcamModel GetWebcam()
-        {
-            if (webcamModel == null)
-            {
-                webcamModel = new WebcamModel();
-            }
-            return webcamModel;
-        }
-        private void initVideo()
         {
             webcam = new Webcam();
             webcam.Init();
         }
-
+        public static WebcamModel Instance
+        {
+            get
+            {
+                if (webcamModel == null)
+                {
+                    webcamModel = new WebcamModel();
+                }
+                return webcamModel;
+            }
+        }
         public string GetImage()
         {
-            return webcam.CapturePhoto().Result;
+            return webcam.CapturePhoto();
         }
 
     }

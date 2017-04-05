@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using GpioWrapper;
 
 namespace asp_arm.Models
@@ -10,8 +7,7 @@ namespace asp_arm.Models
     {
         private static volatile InputModel inputModel = null;
         Input input;
-
-        private bool state = false;
+        
         private InputModel()
         {
             InitGPIO();

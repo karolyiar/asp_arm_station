@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+using Windows.Foundation;
 using Windows.Media.Capture;
-using Windows.Media.Capture.Frames;
 using Windows.Media.MediaProperties;
 using Windows.Storage;
 
@@ -13,31 +10,32 @@ namespace WebcamWrapper
     public class Webcam
     {
         private MediaCapture mediaCapture;
-        private MediaFrameReader _mediaFrameReader;
         private StorageFile photoFile;
         private readonly string PHOTO_FILE_NAME = "photo.jpg";
 
-        public async void Init()
+
+        public void Init()
         {
             try
             {
                 mediaCapture = new MediaCapture();
-                await mediaCapture.InitializeAsync();
+                RunAsyncTask(mediaCapture.InitializeAsync());
             }
             catch (Exception ex)
             {
                 throw new InvalidOperationException("Unable to initialize camera for audio/video mode: " + ex.Message);
             }
         }
-
-        public async Task<string> CapturePhoto()
+        public string CapturePhoto()
         {
             try
             {
-                photoFile = await KnownFolders.PicturesLibrary.CreateFileAsync(
-                    PHOTO_FILE_NAME, CreationCollisionOption.GenerateUniqueName);
+                photoFile = RunAsyncTask(
+                    KnownFolders.PicturesLibrary.CreateFileAsync(
+                    PHOTO_FILE_NAME, CreationCollisionOption.GenerateUniqueName)
+                    );
                 ImageEncodingProperties imageProperties = ImageEncodingProperties.CreateJpeg();
-                await mediaCapture.CapturePhotoToStorageFileAsync(imageProperties, photoFile);
+                RunAsyncTask(mediaCapture.CapturePhotoToStorageFileAsync(imageProperties, photoFile));
                 return photoFile.Path;
             }
             catch (Exception ex)
@@ -45,6 +43,33 @@ namespace WebcamWrapper
                 throw new InvalidOperationException("Can not capture photo: " + ex.Message);
             }
 
+        }
+
+        /*
+         * Wrapper for Windows Universal App aync funtions
+         */
+        private void RunAsyncTask(IAsyncAction task)
+        {
+            AutoResetEvent e = new AutoResetEvent(false);
+            task.Completed += (asyncInfo, asyncStatus) =>
+            {
+                if (asyncStatus != AsyncStatus.Completed)
+                    throw new InvalidOperationException("Async action error: " + asyncStatus);
+                e.Set();
+            };
+            e.WaitOne();
+        }
+        private T RunAsyncTask<T>(IAsyncOperation<T> task)
+        {
+            AutoResetEvent e = new AutoResetEvent(false);
+            task.Completed += (asyncInfo, asyncStatus) =>
+            {
+                if (asyncStatus != AsyncStatus.Completed)
+                    throw new InvalidOperationException("Async operation error: " + asyncStatus);
+                e.Set();
+            };
+            e.WaitOne();
+            return task.GetResults();
         }
     }
 }

@@ -45,13 +45,20 @@
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "System.Runtime.InteropServices": "4.3.0",
     "GpioWrapper": "0.0.7",
-    "WebcamWrapper": "0.0.2",
-    "System.Runtime.InteropServices.WindowsRuntime": "4.0.0",
-    "System.Runtime.WindowsRuntime": "4.0.10",
+    "WebcamWrapper": "0.0.3",
+    "System.Runtime.InteropServices.WindowsRuntime": {
+      "version": "4.0.0",
+      "exclude": "runtime"
+    },
+    "System.Runtime": "4.3.0",
+    "System.Runtime.WindowsRuntime": {
+      "version": "4.0.10"
+    },
+    "Microsoft.Bcl.Async": "1.0.168",
 
     "Microsoft.NETCore.UniversalWindowsPlatform": {
-      "version": "5.0.0",
-      "exclude": "runtime"
+      "version": "5.0.0"
+      //"exclude": "runtime"
     }
   },
 

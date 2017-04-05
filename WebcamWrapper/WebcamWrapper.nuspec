@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>WebcamWrapper</id>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <title>WebcamWrapper</title>
     <authors>Aron Karolyi</authors>
     <owners>Aron Karolyi</owners>
