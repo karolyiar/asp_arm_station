@@ -25,7 +25,6 @@
       "version": "4.3.0",
       "exclude": "runtime"
     },
-    "Microsoft.ApplicationInsights.AspNetCore": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.1",
     "Microsoft.AspNetCore.Razor.Tools": {
@@ -47,15 +46,12 @@
     "GpioWrapper": "0.0.7",
     "WebcamWrapper": "0.0.3",
     "System.Runtime.InteropServices.WindowsRuntime": {
-      "version": "4.0.0",
-      "exclude": "runtime"
+      "version": "4.0.0"
     },
     "System.Runtime": "4.3.0",
     "System.Runtime.WindowsRuntime": {
       "version": "4.0.10"
     },
-    "Microsoft.Bcl.Async": "1.0.168",
-
     "Microsoft.NETCore.UniversalWindowsPlatform": {
       "version": "5.0.0"
       //"exclude": "runtime"

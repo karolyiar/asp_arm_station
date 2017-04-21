@@ -5,7 +5,7 @@ namespace asp_arm.Models
     public class WebcamModel
     {
         private static volatile WebcamModel webcamModel = null;
-        Webcam webcam;
+        private Webcam webcam;
         private WebcamModel()
         {
             webcam = new Webcam();
@@ -22,7 +22,11 @@ namespace asp_arm.Models
                 return webcamModel;
             }
         }
-        public string GetImage()
+        public string GetSavedImage()
+        {
+            return webcam.SavePhoto();
+        }
+        public byte[] GetImage()
         {
             return webcam.CapturePhoto();
         }

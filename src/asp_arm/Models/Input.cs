@@ -6,7 +6,7 @@ namespace asp_arm.Models
     public class InputModel
     {
         private static volatile InputModel inputModel = null;
-        Input input;
+        private Input input;
         
         private InputModel()
         {

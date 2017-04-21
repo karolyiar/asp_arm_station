@@ -6,7 +6,7 @@ namespace asp_arm.Models
     public class LedModel
     {
         private static volatile LedModel ledModel = null;
-        Led led;
+        private Led led;
 
         private bool state = false;
         private LedModel()
