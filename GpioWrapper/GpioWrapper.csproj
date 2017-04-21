@@ -104,7 +104,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="CreateNugetPackage.bat" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -172,7 +171,7 @@
     <PostBuildEvent>mkdir package\lib\uap10.0
 copy GpioWrapper.dll package\lib\uap10.0 /y
 del "$(SolutionDir)GpioWrapper*.nupkg" /q
-d:\download\nuget pack "$(ProjectDir)GpioWrapper.nuspec" -OutputDirectory "$(SolutionDir) " -BasePath package
+"$(SolutionDir)Tools\nuget.exe " pack "$(ProjectDir)GpioWrapper.nuspec" -OutputDirectory "$(SolutionDir) " -BasePath package
 del package\lib\uap10.0\*.* /q
 rmdir package /s /q
 

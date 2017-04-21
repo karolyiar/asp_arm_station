@@ -104,7 +104,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="CreateNugetPackage.bat" />
     <None Include="project.json" />
     <None Include="WebcamWrapper.nuspec">
       <SubType>Designer</SubType>
@@ -123,7 +122,7 @@
     <PostBuildEvent>mkdir package\lib\uap10.0
 copy WebcamWrapper.dll package\lib\uap10.0 /y
 del "$(SolutionDir)WebcamWrapper*.nupkg" /s /q
-d:\download\nuget pack "$(ProjectDir)WebcamWrapper.nuspec" -OutputDirectory "$(SolutionDir) " -BasePath package
+"$(SolutionDir)Tools\nuget.exe " pack "$(ProjectDir)WebcamWrapper.nuspec" -OutputDirectory "$(SolutionDir) " -BasePath package
 del package\lib\uap10.0\*.* /q
 rmdir package /s /q
 
