@@ -12,11 +12,6 @@ namespace asp_arm.Controllers
     [Route("input")]
     public class InputController : Controller
     {
-        // GET: /<controller>/
-        public IActionResult Index()
-        {
-            return View();
-        }
         [HttpGet]
         public string Get()
         {

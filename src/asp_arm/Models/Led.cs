@@ -32,20 +32,13 @@ namespace asp_arm.Models
             }
             set
             {
-                Console.WriteLine("led set start");
+                state = value == "on" ? true : false;
                 try
-                {
-                    switch (value)
-                    {
-                        case "on":
-                            led.On();
-                            state = true;
-                            break;
-                        case "off":
-                            led.Off();
-                            state = false;
-                            break;
-                    }
+                {  
+                    if (state)
+                        led.On();
+                    else
+                        led.Off();
                 }
                 catch (Exception e)
                 {
@@ -56,11 +49,10 @@ namespace asp_arm.Models
 
         private void InitGPIO()
         {
-            Console.WriteLine("led init start");
             try
             {
                 led = new Led();
-                led.Init(5, GpioWrapper.PinValue.Low);
+                led.Init(5, PinValue.Low);
             }
             catch (Exception e)
             {
@@ -71,14 +63,7 @@ namespace asp_arm.Models
         public void Toggle()
         {
             state = !state;
-            if (state)
-            {
-                led.Write(PinValue.High);
-            }
-            else
-            {
-                led.Write(PinValue.Low);
-            }
+            led.Write(state ? PinValue.High : PinValue.Low);
         }
     }
 }

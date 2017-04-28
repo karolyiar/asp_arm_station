@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using asp_arm.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,12 +16,6 @@ namespace asp_arm
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            if (env.IsEnvironment("Development"))
-            {
-                // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-                //builder.AddApplicationInsightsSettings(developerMode: true);
-            }
-
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -35,35 +26,18 @@ namespace asp_arm
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            //services.AddApplicationInsightsTelemetry(Configuration);
-
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseStaticFiles();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            //app.UseApplicationInsightsRequestTelemetry();
-
-            //app.UseApplicationInsightsExceptionTelemetry();
-
-            app.UseMvc(
-                routes =>
-                {
-                    routes.MapRoute(
-                        name: "led",
-                        template: "{controller=Led}/{state?}");
-                    routes.MapRoute(
-                        name: "input",
-                        template: "{controller=Input}");
-                    routes.MapRoute(
-                        name: "default",
-                        template: "{controller=Home}/{action=Index}/{id?}");
-                    
-                });
+            app.UseMvc();
+            var inputModel = InputModel.Instance;
         }
     }
 }

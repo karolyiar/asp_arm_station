@@ -33,7 +33,6 @@ namespace asp_arm.Models
 
         private void InitGPIO()
         {
-            Console.WriteLine("input init start");
             try
             {
                 input = new Input(6);
@@ -48,10 +47,14 @@ namespace asp_arm.Models
 
         private void ChangedEventHandler(Input sender, PinEdge e)
         {
+            LedModel led = LedModel.Instance;
             if (e == PinEdge.RisingEdge)
             {
-                LedModel led = LedModel.Instance;
-                led.Toggle();
+                led.State = "off";
+            }
+            else
+            {
+                led.State = "on";
             }
         }
     }

@@ -1,7 +1,24 @@
 ﻿@{
     ViewData["Title"] = "Index";
 }
+<head>
+    <script type="text/javascript" src="@Url.Content("home/scripts.js")" async></script>
+    <link href="home/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="back">
+        <button class="button" id="startRefreshBtn" onclick="startTimer()" disabled>Start refresh</button>
+        <button class="button" id="stopRefreshBtn" onclick="stopTimer()">Stop refresh</button>
+        <button class="button" id="refreshBtn" onclick="refresh()" disabled>Refresh</button>
+    </div>
+    <div class="back">
+        <button class="button" id="ledOnBtn" onclick="setLed(1)">Led on</button>
+        <button class="button" id="ledOffBtn" onclick="setLed(0)">Led off</button>
+    </div>
+    <div>Led state: <div id="ledstate" style="display: inline"></div></div>
+    <div>Input state: <div id="inputstate" style="display: inline"></div></div>
 
-<h2>Index</h2>
+    @* tiniest gif: http://stackoverflow.com/questions/5775469/whats-the-valid-way-to-include-an-image-with-no-src *@
+    <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" />
 
-<p>Hello from our View Template!</p>
+</body>

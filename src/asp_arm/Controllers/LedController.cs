@@ -12,24 +12,17 @@ namespace asp_arm.Controllers
     [Route("led")]
     public class LedController : Controller
     {
-        // GET: /led/
-        public IActionResult Index()
+        [HttpGet]
+        public string Get()
         {
-            return View();
+            LedModel led = LedModel.Instance;
+            return led.State;
         }
         [HttpGet("{state:int}")]
         public string Get(int state)
         {
             LedModel led = LedModel.Instance;
-            Console.WriteLine("a");
-            led.State = (state==1?"on":"off");
-            Console.WriteLine("b");
-            return led.State;
-        }
-        [HttpGet]
-        public string Get()
-        {
-            LedModel led = LedModel.Instance;
+            led.State = (state == 1 ? "on" : "off");
             return led.State;
         }
     }

@@ -1,4 +1,5 @@
-﻿using WebcamWrapper;
+﻿using System;
+using WebcamWrapper;
 
 namespace asp_arm.Models
 {
@@ -6,6 +7,9 @@ namespace asp_arm.Models
     {
         private static volatile WebcamModel webcamModel = null;
         private Webcam webcam;
+
+        private byte[] lastImage;
+        private DateTime lastImageTime = DateTime.MinValue;
         private WebcamModel()
         {
             webcam = new Webcam();
@@ -28,7 +32,13 @@ namespace asp_arm.Models
         }
         public byte[] GetImage()
         {
-            return webcam.CapturePhoto();
+            // image cache
+            if (DateTime.Now > lastImageTime.AddMilliseconds(800))
+            {
+                lastImage = webcam.CapturePhoto();
+                lastImageTime = DateTime.Now;
+            }
+            return lastImage;
         }
 
     }
