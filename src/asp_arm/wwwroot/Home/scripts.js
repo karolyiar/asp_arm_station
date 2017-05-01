@@ -15,12 +15,11 @@ function stopTimer() {
     document.getElementById("refreshBtn").disabled = false;
 }
 function refresh() {
-    refreshImage();
     refreshStates();
+    refreshImage();
 }
 function refreshImage() {
     var downloadingImage = new Image();
-    downloadingImage.re
     downloadingImage.onload = function () {
         image.src = this.src;
     };
@@ -29,6 +28,7 @@ function refreshImage() {
 function refreshStates() {
     readStatus(document.getElementById("ledstate"), "led");
     readStatus(document.getElementById("inputstate"), "input");
+    console.log(document.getElementById("ledstate").innerHTML);
     if (document.getElementById("ledstate").innerHTML == "on") {
         document.getElementById("ledOnBtn").disabled = true;
         document.getElementById("ledOffBtn").disabled = false;
@@ -39,7 +39,7 @@ function refreshStates() {
 }
 function readStatus(element, address) {
     var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", address, false);
+    rawFile.open("GET", address, true);
     rawFile.onreadystatechange = function () {
         if (rawFile.readyState === 4) {
             if (rawFile.status === 200 || rawFile.status == 0) {
@@ -53,12 +53,18 @@ function readStatus(element, address) {
 function setLed(state) {
     var request = new XMLHttpRequest();
     request.open("GET", "led/" + state, true);
-    request.send(null);
-    if (state == 1) {
-        document.getElementById("ledOnBtn").disabled = true;
-        document.getElementById("ledOffBtn").disabled = false;
-    } else {
-        document.getElementById("ledOnBtn").disabled = false;
-        document.getElementById("ledOffBtn").disabled = true;
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            if (request.status === 200 || request.status == 0) {
+                if (request.response == "on") {
+                    document.getElementById("ledOnBtn").disabled = true;
+                    document.getElementById("ledOffBtn").disabled = false;
+                } else {
+                    document.getElementById("ledOnBtn").disabled = false;
+                    document.getElementById("ledOffBtn").disabled = true;
+                }
+            }
+        }
     }
+    request.send(null);
 }
