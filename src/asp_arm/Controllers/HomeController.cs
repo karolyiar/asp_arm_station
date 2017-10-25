@@ -8,12 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace asp_arm.Controllers
 {
-    [Route("Home")]
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
-            Console.WriteLine("index");
             return View();
         }
     }

@@ -12,10 +12,11 @@ namespace asp_arm.Controllers
     [Route("input")]
     public class InputController : Controller
     {
+        InputModel input = InputModel.Instance;
+
         [HttpGet]
         public string Get()
         {
-            InputModel input = InputModel.Instance;
             return input.State;
         }
     }

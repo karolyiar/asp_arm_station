@@ -37,7 +37,13 @@ namespace asp_arm
             loggerFactory.AddDebug();
 
             app.UseMvc();
-            var inputModel = InputModel.Instance;
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

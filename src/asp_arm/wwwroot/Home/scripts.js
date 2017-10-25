@@ -1,21 +1,43 @@
-﻿var image = document.images[0];
+﻿var image = document.getElementById("webcamImg");
+var refreshBtn = document.getElementById("refreshBtn");
+var refreshNowBtn = document.getElementById("refreshNowBtn");
+var waterBtn = document.getElementById("waterBtn");
 var timer = window.setInterval(refresh, 1000);
+var ledChanging = 0;
+
+var autoRefresh = true;
+var waterFlow = true;
+
+function toggleRefresh() {
+    if (autoRefresh) {
+        stopTimer();
+    } else {
+        startTimer();
+    }
+    autoRefresh = !autoRefresh;
+}
 
 function startTimer() {
     clearInterval(timer);
     timer = window.setInterval(refresh, 1000);
-    document.getElementById("startRefreshBtn").disabled = true;
-    document.getElementById("stopRefreshBtn").disabled = false;
-    document.getElementById("refreshBtn").disabled = true;
+
+    refreshBtn.innerHTML = "Bekapcsolva";
+    refreshBtn.classList.remove("btn-default");
+    refreshBtn.classList.add("btn-primary");
 }
 function stopTimer() {
     clearInterval(timer);
-    document.getElementById("startRefreshBtn").disabled = false;
-    document.getElementById("stopRefreshBtn").disabled = true;
-    document.getElementById("refreshBtn").disabled = false;
+
+    refreshBtn.innerHTML = "Kikapcsolva"
+    refreshBtn.classList.remove("btn-primary");
+    refreshBtn.classList.add("btn-default");
+    
 }
 function refresh() {
-    refreshStates();
+    if (!ledChanging)
+        refreshStates();
+    else
+        ledChanging -= 1;
     refreshImage();
 }
 function refreshImage() {
@@ -23,18 +45,22 @@ function refreshImage() {
     downloadingImage.onload = function () {
         image.src = this.src;
     };
-    downloadingImage.src = "../image?" + new Date().getTime();
+    downloadingImage.src = "../image/saved?" + new Date().getTime();
+
 }
 function refreshStates() {
     readStatus(document.getElementById("ledstate"), "led");
     readStatus(document.getElementById("inputstate"), "input");
-    console.log(document.getElementById("ledstate").innerHTML);
     if (document.getElementById("ledstate").innerHTML == "on") {
-        document.getElementById("ledOnBtn").disabled = true;
-        document.getElementById("ledOffBtn").disabled = false;
+        waterBtn.innerHTML = "Bekapcsolva";
+        waterBtn.classList.remove("btn-default");
+        waterBtn.classList.add("btn-primary");
+        waterFlow = true;
     } else {
-        document.getElementById("ledOnBtn").disabled = false;
-        document.getElementById("ledOffBtn").disabled = true;
+        waterBtn.innerHTML = "Kikapcsolva";
+        waterBtn.classList.remove("btn-primary");
+        waterBtn.classList.add("btn-default");
+        waterFlow = false;
     }
 }
 function readStatus(element, address) {
@@ -50,18 +76,24 @@ function readStatus(element, address) {
     }
     rawFile.send(null);
 }
-function setLed(state) {
+function toggleWater() {
+    waterFlow = !waterFlow;
     var request = new XMLHttpRequest();
-    request.open("GET", "led/" + state, true);
+    request.open("GET", "led/" + (waterFlow?1:0), true);
     request.onreadystatechange = function () {
         if (request.readyState === 4) {
             if (request.status === 200 || request.status == 0) {
+                ledChanging = 10;
                 if (request.response == "on") {
-                    document.getElementById("ledOnBtn").disabled = true;
-                    document.getElementById("ledOffBtn").disabled = false;
+                    waterBtn.innerHTML = "Bekapcsolva";
+                    waterBtn.classList.remove("btn-default");
+                    waterBtn.classList.add("btn-primary");
+                    waterFlow = true;
                 } else {
-                    document.getElementById("ledOnBtn").disabled = false;
-                    document.getElementById("ledOffBtn").disabled = true;
+                    waterBtn.innerHTML = "Kikapcsolva";
+                    waterBtn.classList.remove("btn-primary");
+                    waterBtn.classList.add("btn-default");
+                    waterFlow = false;
                 }
             }
         }

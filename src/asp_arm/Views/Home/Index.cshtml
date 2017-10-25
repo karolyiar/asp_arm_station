@@ -1,24 +1,69 @@
-﻿@{
-    ViewData["Title"] = "Index";
+﻿
+@*
+<div class="back">
+    <button class="button" id="startRefreshBtn" onclick="startTimer()" disabled>Start refresh</button>
+    <button class="button" id="stopRefreshBtn" onclick="stopTimer()">Stop refresh</button>
+    <button class="button" id="refreshBtn" onclick="refresh()" disabled>Refresh</button>
+</div>
+<div class="back">
+    <button class="button" id="ledOnBtn" onclick="setLed(1)">Led on</button>
+    <button class="button" id="ledOffBtn" onclick="setLed(0)">Led off</button>
+</div>
+<div>Led state: <div id="ledstate" style="display: inline"></div></div>
+<div>Input state: <div id="inputstate" style="display: inline"></div></div>
+
+<img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" />
+*@
+
+@{
+    ViewData["Title"] = "Automatikus Kutyaitató";
 }
-<head>
-    <script type="text/javascript" src="@Url.Content("home/scripts.js")" async></script>
-    <link href="home/styles.css" rel="stylesheet" />
-</head>
-<body>
-    <div class="back">
-        <button class="button" id="startRefreshBtn" onclick="startTimer()" disabled>Start refresh</button>
-        <button class="button" id="stopRefreshBtn" onclick="stopTimer()">Stop refresh</button>
-        <button class="button" id="refreshBtn" onclick="refresh()" disabled>Refresh</button>
-    </div>
-    <div class="back">
-        <button class="button" id="ledOnBtn" onclick="setLed(1)">Led on</button>
-        <button class="button" id="ledOffBtn" onclick="setLed(0)">Led off</button>
-    </div>
-    <div>Led state: <div id="ledstate" style="display: inline"></div></div>
-    <div>Input state: <div id="inputstate" style="display: inline"></div></div>
 
-    @* tiniest gif: http://stackoverflow.com/questions/5775469/whats-the-valid-way-to-include-an-image-with-no-src *@
-    <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" />
+<div class="row justify-content-center">
+    <div class="col-5">
+        <div>
+            <h2>Automatikus frissítés</h2>
+            <p>Az automatikus frissítés bekapcsolásával elindítod a kamera képének rendszeres frissítését.</p>
+            <div class="form-group">
+                <label for="frissites">Frissítési gyakoriság:</label>
+                <select class="form-control" id="refreshTime">
+                    <option>1 másodperc</option>
+                    <option>2 másodperc</option>
+                    <option>3 másodperc</option>
+                    <option>4 másodperc</option>
+                </select>
+            </div>
+            <div class="text-right">
+                <button type="button" class="btn btn-primary bg-darkblue" id="refreshBtn" onclick="toggleRefresh()">Bekapcsolva</button>
+            </div>
+        </div>
+        <hr />
+        <div>
+            <h2>Víz adagolása</h2>
+            <p>A vízadagoló működése automatikus, ezen a felületen nyomon követheted az aktuális állapotát, illetve letilthatod az adagolást.</p>
+            <div>
+                Jelenlegi állapot:
+                <img src="~/images/water-on.png" id="waterStateImg" />
+                <div>Led state: <div id="ledstate" style="display: inline"></div></div>
+                <div>Input state: <div id="inputstate" style="display: inline"></div></div>
+            </div>
+            <div class="text-right">
+                <button type="button" class="btn btn-primary bg-darkblue" id="waterBtn" onclick="toggleWater()">Bekapcsolva</button>
+            </div>
+        </div>
 
-</body>
+    </div>
+    <div class="col-5">
+        <h2>Kamera kép</h2>
+        <div class="img-thumbnail bg-blue">
+            @* tiniest gif: http://stackoverflow.com/questions/5775469/whats-the-valid-way-to-include-an-image-with-no-src *@
+            <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" id="webcamImg" class="img-thumbnail" width="640" height="480" />
+            <div class="caption">
+                <button type="button" class="btn btn-default" aria-label="Left Align" id="refreshNowBtn">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                </button>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</div>

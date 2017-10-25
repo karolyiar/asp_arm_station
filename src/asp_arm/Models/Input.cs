@@ -45,17 +45,11 @@ namespace asp_arm.Models
             }
         }
 
-        private void ChangedEventHandler(Input sender, PinEdge e)
+        private void ChangedEventHandler(Input sender, PinEdge changingEdge)
         {
             LedModel led = LedModel.Instance;
-            if (e == PinEdge.RisingEdge)
-            {
-                led.State = "off";
-            }
-            else
-            {
-                led.State = "on";
-            }
+            led.State = (changingEdge == PinEdge.RisingEdge) ? "off" : "on";
+
         }
     }
 }

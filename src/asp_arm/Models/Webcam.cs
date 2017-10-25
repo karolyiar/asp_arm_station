@@ -41,5 +41,10 @@ namespace asp_arm.Models
             return lastImage;
         }
 
+        public void GetStream()
+        {
+            
+        }
+
     }
 }

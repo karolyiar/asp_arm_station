@@ -1,16 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2DA8F2D7-D29A-41E6-B387-7DAC79ED82DC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79BD5238-50EA-43B5-BA73-C5C9B31E6325}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "asp_arm", "src\asp_arm\asp_arm.xproj", "{068B5DC5-77D0-423A-928E-E81CA4C0CAD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asp_arm", "src\asp_arm\asp_arm.csproj", "{068B5DC5-77D0-423A-928E-E81CA4C0CAD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GpioWrapper", "GpioWrapper\GpioWrapper.csproj", "{F715C3EF-00F0-4F5A-984A-DE32C13AA220}"
 EndProject
@@ -82,5 +79,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{068B5DC5-77D0-423A-928E-E81CA4C0CAD5} = {2DA8F2D7-D29A-41E6-B387-7DAC79ED82DC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6A94511-2FC0-4172-A09A-ABEC52BEEDFE}
 	EndGlobalSection
 EndGlobal

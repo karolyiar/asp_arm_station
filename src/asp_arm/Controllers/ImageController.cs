@@ -7,10 +7,11 @@ namespace asp_arm.Controllers
     [Route("image")]
     public class ImageController : Controller
     {
+        WebcamModel webcam = WebcamModel.Instance;
+
         [HttpGet("saved")]
         public IActionResult WebcamSaved()
         {
-            WebcamModel webcam = WebcamModel.Instance;
             string image = webcam.GetSavedImage();
             var fs = new FileStream(image,
                                    FileMode.Open,
@@ -20,7 +21,6 @@ namespace asp_arm.Controllers
         [HttpGet]
         public IActionResult Webcam()
         {
-            WebcamModel webcam = WebcamModel.Instance;
             var image = webcam.GetImage();
             return File(image, "image/jpeg");
         }
